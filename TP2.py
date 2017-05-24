@@ -4,12 +4,11 @@ from tkinter import *
 from tkinter import messagebox
 from threading import Thread
 import os
-import winsound
+# import winsound
 import sys
-import pickle
 
 class Robot:
-    def __init__(self, nombre, imagen):
+    def __init__(self, nombre):
         self.nombre = nombre
         self.imagen = "Cry1.png"
 
