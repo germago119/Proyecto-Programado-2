@@ -5,7 +5,7 @@ from tkinter import messagebox
 from threading import Thread
 import os
 # import winsound
-import sys
+
 
 class Robot:
     def __init__(self, nombre):
