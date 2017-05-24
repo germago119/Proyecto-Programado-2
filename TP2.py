@@ -23,7 +23,7 @@ class GUI:
         #Crea la ventana principal
         self.master = master
         master.title("Azrael")
-        master.minsize(750, 600)
+        master.minsize(1280, 800)
 #           ______________________________
 #__________/Se crea un lienzo para objetos
         contenedor_principal = Canvas(master, width=750, height=600, bg="#000000")
@@ -45,7 +45,6 @@ class GUI:
         azrael.image = frame1
         azrael.place(x=570, y=110)
 
-    
 
 root = Tk()
 ventana_principal = GUI(root)
