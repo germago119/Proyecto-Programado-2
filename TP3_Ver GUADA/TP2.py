@@ -17,7 +17,7 @@ x_azrael = 570 #posicion inicial en x del robot para left() y right()
 
 move_frames = ["Walk 1 R.png", "Walk 2 R.png", "Walk 3 R.png", "Walk 4 R.png"]
 class Robot:
-    def __init__(self, nombre, imagen):
+    def __init__(self, nombre):
         self.nombre = nombre
         self.imagen = "Cry1.png"
 
@@ -31,6 +31,7 @@ class GUI:
     def __init__(self, master):
         #Crea la ventana principal
         self.master = master
+        self.azrael = Label(master, bg='white')
         master.title("Azrael")
         master.minsize(1300, 800)
 #           ______________________________
@@ -49,46 +50,45 @@ class GUI:
 #           ______________________________
 # __________/Se crea el robot
         frame1 = self.cargarImagen("Front.png")
-        azrael = Label(fondo, bg='white')
-        azrael.config(image=frame1)
-        azrael.image = frame1
-        azrael.place(x=450, y=110)
+        self.azrael.config(image=frame1)
+        self.azrael.image = frame1
+        self.azrael.place(x=450, y=110)
 #           ______________________________
 # __________/Función que ejecuta que se mueva hacia la derecha
     def right(self, pos = -1, rep = -1, x_place= 570):
         self.pos = pos
         self.rep = rep
         self.place = x_place
-        self.right_aux(pos, rep, x_place)
+        self.right_aux()
         self.master.mainloop()
 
     def right_aux(self):
         global x_azrael
         global pos
-        azrael.place(x=x_azrael, y=110)
+        self.azrael.place(x=x_azrael, y=110)
         pos += 1
         x_azrael += 7
         if x_azrael == 563:
             pos = -1
             frame = self.cargarImagen(built_frames[1])
-            azrael.config(image=frame)
-            azrael.image = frame
+            self.azrael.config(image=frame)
+            self.azrael.image = frame
             return
         if x_azrael >= 970:
             pos = -1
             frame5 = self.cargarImagen(built_frames[1])
-            azrael.config(image=frame5)
-            azrael.image = frame5
+            self.azrael.config(image=frame5)
+            self.azrael.image = frame5
             return
         if pos == len(move_frames):
             pos = 0
-        frame3 = cargarImagen(move_frames[pos])
-        azrael.config(image=frame3)
-        self.master.after(10, right)
+        frame3 = self.cargarImagen(move_frames[pos])
+        self.azrael.config(image=frame3)
+        self.master.after(10, self.right)
         self.master.mainloop()
 
-        b1 = Button(contenedor_principal, text = "Prueba", command = self.right).place(750, 10)
-        master.mainloop()
+        b1 = Button(self.master, text = "Prueba", command = self.right).place(750, 10)
+        self.master.mainloop()
         
 
 
