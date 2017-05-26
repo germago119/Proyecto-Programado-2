@@ -1,0 +1,26 @@
+int boton1 = 13;
+int boton2 = 12;
+int boton3 = 11;
+int boton4 = 10;//evitar usar pines 0 y 1
+void setup() {
+  //inicializa la comunicacion serial
+  Serial.begin(9600); //9600 es la "velocidad", el mismo valor debe ser seleccionado en el monitor serial
+  pinMode(boton1, INPUT_PULLUP);
+  pinMode(boton2, INPUT_PULLUP);
+  pinMode(boton3, INPUT_PULLUP);
+  pinMode(boton4, INPUT_PULLUP);
+  //declaramos el pin como una entrada digital (HIGH o LOW, 0 o 5V)
+}
+
+void loop() {
+  int button1State = digitalRead(boton1);
+  int button2State = digitalRead(boton2);
+  int button3State = digitalRead(boton3);
+  int button4State = digitalRead(boton4);
+    //lee el estado del pin (0 o 1, 0 o 5v)
+  Serial.println(button1State);
+  Serial.println(button2State);
+  Serial.println(button3State);
+  Serial.println(button4State);
+  delay(10);        // espera para la siguiente lectura
+}
