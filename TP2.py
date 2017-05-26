@@ -87,12 +87,10 @@ class GUI:
         self.master.after(10, self.right)
         self.master.mainloop()
 
-        b1 = Button(self.master, text = "Prueba", command = self.right).place(750, 10)
+        b1 = Button(self.master, text = "Prueba", command = self.right).place(x=750, y=10)
         self.master.mainloop()
-        
 
 
-    
 
 root = Tk()
 ventana_principal = GUI(root)
