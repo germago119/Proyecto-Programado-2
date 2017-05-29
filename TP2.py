@@ -7,6 +7,7 @@ import os
 import winsound
 import sys
 
+sys.setrecursionlimit(10000000)
 
 #-------------------------------------------------------
 
@@ -30,7 +31,7 @@ class GUI:
     def __init__(self, master):
         #Crea la ventana principal
         self.master = master
-
+        self.left_frames = ["W1L.png", "W2L.png", "W3L.png", "W4L.png"]
         self.right_frames = ["W1R.png", "W2R.png", "W3R.png", "W4R.png"]
         master.title("Azrael")
         master.minsize(1300, 800)
@@ -58,34 +59,29 @@ class GUI:
         #  AQUI VA UNA IMAGEN DEL CONTROL CON LOS BOTONES
 
         self.b1 = Button(self.master, text="Prueba right", command=self.right)
-        self.b1.place(x=750, y=10)
+        self.b1.place(x=700, y=10)
+        self.b2 = Button(self.master, text="Prueba Left", command=self.left)
+        self.b2.place(x=600, y=10)
+
         self.master.mainloop()
 #           ______________________________
 # __________/Función que ejecuta que se mueva hacia la derecha
 
-    def right(self, pos = -1, rep = -1, x_place = 570):
-        self.pos = pos
-        self.rep = rep
-        self.place = x_place
-        self.right_aux()
-        self.master.mainloop()
 
-    def right_aux(self):
+    def right(self):
         global x_azrael
         global pos
         self.azrael.place(x=x_azrael, y=50)
         pos += 1
         x_azrael += 7
-        if x_azrael == 400:
+        if x_azrael == 399 or x_azrael in range (750, 757):
             pos = -1
             self.azrael.config(image=self.frame1)
             self.azrael.image = self.frame1
             return
-        if x_azrael >= 760:
+        if x_azrael > 1220:
             pos = -1
-            self.azrael.config(image=self.frame1)
-            self.azrael.image = self.frame1
-            return
+            x_azrael = 0
         if pos == len(self.right_frames):
             pos = 0
         frame3 = self.cargarImagen(self.right_frames[pos])
@@ -93,7 +89,26 @@ class GUI:
         self.master.after(5, self.right)
         self.master.mainloop()
 
-
+    def left(self):
+        global x_azrael
+        global pos
+        self.azrael.place(x=x_azrael, y=50)
+        pos += 1
+        x_azrael -= 7
+        if x_azrael == 401 or x_azrael in range (-1, 6):
+            pos = -1
+            self.azrael.config(image=self.frame1)
+            self.azrael.image = self.frame1
+            return
+        if x_azrael < -450:
+            pos = -1
+            x_azrael = 800
+        if pos == len(self.left_frames):
+            pos = 0
+        frame3 = self.cargarImagen(self.left_frames[pos])
+        self.azrael.config(image=frame3)
+        self.master.after(5, self.left)
+        self.master.mainloop()
 
 
 
