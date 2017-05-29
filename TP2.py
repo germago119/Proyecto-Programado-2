@@ -30,32 +30,44 @@ class GUI:
     def __init__(self, master):
         #Crea la ventana principal
         self.master = master
-        self.azrael = Label(master, bg='white')
+
         self.right_frames = ["W1R.png", "W2R.png", "W3R.png", "W4R.png"]
         master.title("Azrael")
         master.minsize(1300, 800)
+        master.resizable(width=NO, height=NO)
 #           ______________________________
 #__________/Se crea un lienzo para objetos
-        contenedor_principal = Canvas(master, width=1300, height=800, bg="#000000")
-        contenedor_principal.place(x=0, y=0)
+        self.contenedor_principal = Canvas(master, width=1300, height=800, bg="#ffffff")
+        self.contenedor_principal.place(x=0, y=0)
 
         #Canvas donde estara el Robot
-        fondo = Canvas(master, width=1300, height= 800, bg="#ffffff")
-        fondo.place(x=0, y=0)
+        self.fondo = Canvas(master, width=1300, height= 800, bg="#ffffff")
+        self.fondo.place(x=0, y=0)
 #           ____________________________
 #__________/Cargar una imagen de fondo
-        imagenFondo = self.cargarImagen("Front.png")
-        LabelFondo = Label(contenedor_principal, image=imagenFondo, bg="#FFFFFF")
-        LabelFondo.place(x=0, y=0)
+        #self.imagenFondo = self.cargarImagen("Front.png")
+        #self.LabelFondo = Label(master, image=self.imagenFondo, bg="#FFFFFF")
+        #self.LabelFondo.place(x=0, y=0)
 #           ______________________________
 # __________/Se crea el robot
-        frame1 = self.cargarImagen("Front.png")
-        self.azrael.config(image=frame1)
-        self.azrael.image = frame1
-        self.azrael.place(x=450, y=110)
+        self.frame1 = self.cargarImagen("Front.png")
+        self.azrael = Label(self.fondo, bg='white')
+        self.azrael.config(image=self.frame1)
+        self.azrael.image = self.frame1
+        self.azrael.place(x=400, y=50)
+
+        self.label_title = Label(master, text="Diseño del control:", fg="#000000", bg="#ffffff", font=("Eczar", 22, "bold"))
+        self.label_title.place(x=90, y=650)
+
+        #  AQUI VA UNA IMAGEN DEL CONTROL CON LOS BOTONES
+
+        self.b1 = Button(self.master, text="Prueba right", command=self.right)
+        self.b1.place(x=750, y=10)
+        self.master.mainloop()
 #           ______________________________
 # __________/Función que ejecuta que se mueva hacia la derecha
-    def right(self, pos = -1, rep = -1, x_place= 570):
+
+    def right(self, pos = -1, rep = -1, x_place = 570):
         self.pos = pos
         self.rep = rep
         self.place = x_place
@@ -87,8 +99,7 @@ class GUI:
         self.master.after(10, self.right)
         self.master.mainloop()
 
-        b1 = Button(self.master, text = "Prueba", command = self.right).place(x=750, y=10)
-        self.master.mainloop()
+
 
 
 
