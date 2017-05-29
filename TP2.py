@@ -76,13 +76,13 @@ class GUI:
         self.azrael.place(x=x_azrael, y=50)
         pos += 1
         x_azrael += 7
-        if x_azrael == 563:
+        if x_azrael == 400:
             pos = -1
             frame = self.cargarImagen(self.right_frames[1])
             self.azrael.config(image=frame)
             self.azrael.image = frame
             return
-        if x_azrael >= 970:
+        if x_azrael >= 760:
             pos = -1
             frame5 = self.cargarImagen(self.right_frames[1])
             self.azrael.config(image=frame5)
