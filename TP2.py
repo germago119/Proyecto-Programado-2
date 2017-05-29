@@ -7,12 +7,11 @@ import os
 import winsound
 import sys
 
+sys.setrecursionlimit(10000000)
 
 #-------------------------------------------------------
 
-pos = -1 #Variable de posicion
-rep = -1 #Variable de repeticion
-x_azrael = 570 #posicion inicial en x del robot para left() y right()
+
 #--------------------------------------------------------------------
 
 class Robot:
@@ -30,18 +29,17 @@ class GUI:
     def __init__(self, master):
         #Crea la ventana principal
         self.master = master
-
+        self.left_frames = ["W1L.png", "W2L.png", "W3L.png", "W4L.png"]
         self.right_frames = ["W1R.png", "W2R.png", "W3R.png", "W4R.png"]
         master.title("Azrael")
         master.minsize(1300, 800)
         master.resizable(width=NO, height=NO)
-#           ______________________________
-#__________/Se crea un lienzo para objetos
-        self.contenedor_principal = Canvas(master, width=1300, height=800, bg="#ffffff")
-        self.contenedor_principal.place(x=0, y=0)
+
+        self.pos = -1  # Variable de posicion
+        self.x_azrael = 400  # posicion inicial en x del robot para left() y right()
 
         #Canvas donde estara el Robot
-        self.fondo = Canvas(master, width=1300, height= 800, bg="#ffffff")
+        self.fondo = Canvas(master, width=1300, height= 800, bg="#000000")
         self.fondo.place(x=0, y=0)
 #           ____________________________
 #__________/Cargar una imagen de fondo
@@ -56,50 +54,58 @@ class GUI:
         self.azrael.image = self.frame1
         self.azrael.place(x=400, y=50)
 
-        self.label_title = Label(master, text="Diseño del control:", fg="#000000", bg="#ffffff", font=("Eczar", 22, "bold"))
+        self.label_title = Label(master, text="Diseño del control:", fg="#ffffff", bg="#000000", font=("Eczar", 22, "bold"))
         self.label_title.place(x=90, y=650)
 
         #  AQUI VA UNA IMAGEN DEL CONTROL CON LOS BOTONES
 
         self.b1 = Button(self.master, text="Prueba right", command=self.right)
-        self.b1.place(x=750, y=10)
+        self.b1.place(x=700, y=10)
+        self.b2 = Button(self.master, text="Prueba Left", command=self.left)
+        self.b2.place(x=600, y=10)
+
         self.master.mainloop()
 #           ______________________________
 # __________/Función que ejecuta que se mueva hacia la derecha
 
-    def right(self, pos = -1, rep = -1, x_place = 570):
-        self.pos = pos
-        self.rep = rep
-        self.place = x_place
-        self.right_aux()
-        self.master.mainloop()
 
-    def right_aux(self):
-        global x_azrael
-        global pos
-        self.azrael.place(x=x_azrael, y=110)
-        pos += 1
-        x_azrael += 7
-        if x_azrael == 563:
-            pos = -1
-            frame = self.cargarImagen(self.right_frames[1])
-            self.azrael.config(image=frame)
-            self.azrael.image = frame
+    def right(self):
+        self.azrael.place(x=self.x_azrael, y=50)
+        self.pos += 1
+        self.x_azrael += 7
+        if self.x_azrael == 399 or self.x_azrael in range (750, 757):
+            self.pos = -1
+            self.azrael.config(image=self.frame1)
+            self.azrael.image = self.frame1
             return
-        if x_azrael >= 970:
-            pos = -1
-            frame5 = self.cargarImagen(self.right_frames[1])
-            self.azrael.config(image=frame5)
-            self.azrael.image = frame5
-            return
-        if pos == len(self.right_frames):
-            pos = 0
-        frame3 = self.cargarImagen(self.right_frames[pos])
+        if self.x_azrael > 1220:
+            self.pos = -1
+            self.x_azrael = 0
+        if self.pos == len(self.right_frames):
+            self.pos = 0
+        frame3 = self.cargarImagen(self.right_frames[self.pos])
         self.azrael.config(image=frame3)
-        self.master.after(10, self.right)
+        self.master.after(5, self.right)
         self.master.mainloop()
 
-
+    def left(self):
+        self.azrael.place(x=self.x_azrael, y=50)
+        self.pos += 1
+        self.x_azrael -= 7
+        if self.x_azrael == 401 or self.x_azrael in range (-1, 6):
+            self.pos = -1
+            self.azrael.config(image=self.frame1)
+            self.azrael.image = self.frame1
+            return
+        if self.x_azrael < -450:
+            self.pos = -1
+            self.x_azrael = 800
+        if self.pos == len(self.left_frames):
+            self.pos = 0
+        frame3 = self.cargarImagen(self.left_frames[self.pos])
+        self.azrael.config(image=frame3)
+        self.master.after(5, self.left)
+        self.master.mainloop()
 
 
 
