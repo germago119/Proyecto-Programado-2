@@ -12,7 +12,7 @@ import sys
 
 pos = -1 #Variable de posicion
 rep = -1 #Variable de repeticion
-x_azrael = 570 #posicion inicial en x del robot para left() y right()
+x_azrael = 400 #posicion inicial en x del robot para left() y right()
 #--------------------------------------------------------------------
 
 class Robot:
@@ -35,13 +35,9 @@ class GUI:
         master.title("Azrael")
         master.minsize(1300, 800)
         master.resizable(width=NO, height=NO)
-#           ______________________________
-#__________/Se crea un lienzo para objetos
-        self.contenedor_principal = Canvas(master, width=1300, height=800, bg="#ffffff")
-        self.contenedor_principal.place(x=0, y=0)
 
         #Canvas donde estara el Robot
-        self.fondo = Canvas(master, width=1300, height= 800, bg="#ffffff")
+        self.fondo = Canvas(master, width=1300, height= 800, bg="#000000")
         self.fondo.place(x=0, y=0)
 #           ____________________________
 #__________/Cargar una imagen de fondo
@@ -56,7 +52,7 @@ class GUI:
         self.azrael.image = self.frame1
         self.azrael.place(x=400, y=50)
 
-        self.label_title = Label(master, text="Diseño del control:", fg="#000000", bg="#ffffff", font=("Eczar", 22, "bold"))
+        self.label_title = Label(master, text="Diseño del control:", fg="#ffffff", bg="#000000", font=("Eczar", 22, "bold"))
         self.label_title.place(x=90, y=650)
 
         #  AQUI VA UNA IMAGEN DEL CONTROL CON LOS BOTONES
@@ -77,7 +73,7 @@ class GUI:
     def right_aux(self):
         global x_azrael
         global pos
-        self.azrael.place(x=x_azrael, y=110)
+        self.azrael.place(x=x_azrael, y=50)
         pos += 1
         x_azrael += 7
         if x_azrael == 563:
@@ -96,7 +92,7 @@ class GUI:
             pos = 0
         frame3 = self.cargarImagen(self.right_frames[pos])
         self.azrael.config(image=frame3)
-        self.master.after(10, self.right)
+        self.master.after(5, self.right)
         self.master.mainloop()
 
 
