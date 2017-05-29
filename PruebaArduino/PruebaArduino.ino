@@ -8,8 +8,8 @@ pinMode(boton1, INPUT);
 void loop() {
 int buttonState = digitalRead(boton1);
 if (buttonState == 1){
-  Serial.print("0 \n");
+  Serial.println("DER");
 }
 else
-  Serial.print("1 \n");
+  Serial.println("IZQ");
 }
