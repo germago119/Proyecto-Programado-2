@@ -8,26 +8,49 @@ import winsound
 import sys
 import serial
 import time
+import threading
 
 sys.setrecursionlimit(10000000)
 
 
 # -------------------------------------------------------
 
+class myThread(threading.Thread):
+
+    def __init__(self, laVentana, myserial):
+
+        super(myThread,self).__init__()
+        self.miVentana = laVentana
+        self.ser = myserial
+
+
+
+    def update(self):
+        while 1:
+            if self.ser.readline() != None:
+                print(self.ser.readline())
+
+                if self.ser.readline() == b'IZQ\r\n':
+                    self.miVentana.right()
+
 
 # --------------------------------------------------------------------
 
 class Robot:
-    def __init__(self, nombre = None):
-        self.nombre = nombre
-        self.imagen = "Front.png"
-        self.ser = serial.Serial('COM3', 9600)
+    def __init__(self):
+        self.miVentana = None
+        self.ser = None
         self.botones = ""
 
     def update(self):
         while 1:
             if self.ser.readline() != None:
                 print(self.ser.readline())
+
+                if self.ser.readline() == b'IZQ\r\n':
+                    self.miVentana.right()
+
+
 
 
 
@@ -101,14 +124,20 @@ class GUI:
         self.master.after(5, self.right)
         self.master.mainloop()
 
-    def compare(self):
-        if animation == b'DER\r\n':
-            self.right()
+    #def compare(self):
+            #self.right()
 
-animation = Robot()
-arduino = Thread(target=animation.update, args=())
-arduino.start()
-
+#animation = Robot()
+#arduino = Thread(target=animation.update, args=())
+#arduino.start()
+ser = serial.Serial('COM3', 9600, timeout=0, write_timeout=0)
 root = Tk()
 ventana_principal = GUI(root)
+
+arduino = myThread(ventana_principal, verga)
+arduino.update()
+
+root.after(100, )
 root.mainloop()
+
+
