@@ -11,9 +11,7 @@ sys.setrecursionlimit(10000000)
 
 #-------------------------------------------------------
 
-pos = -1 #Variable de posicion
-rep = -1 #Variable de repeticion
-x_azrael = 400 #posicion inicial en x del robot para left() y right()
+
 #--------------------------------------------------------------------
 
 class Robot:
@@ -36,6 +34,9 @@ class GUI:
         master.title("Azrael")
         master.minsize(1300, 800)
         master.resizable(width=NO, height=NO)
+
+        self.pos = -1  # Variable de posicion
+        self.x_azrael = 400  # posicion inicial en x del robot para left() y right()
 
         #Canvas donde estara el Robot
         self.fondo = Canvas(master, width=1300, height= 800, bg="#000000")
@@ -69,43 +70,39 @@ class GUI:
 
 
     def right(self):
-        global x_azrael
-        global pos
-        self.azrael.place(x=x_azrael, y=50)
-        pos += 1
-        x_azrael += 7
-        if x_azrael == 399 or x_azrael in range (750, 757):
-            pos = -1
+        self.azrael.place(x=self.x_azrael, y=50)
+        self.pos += 1
+        self.x_azrael += 7
+        if self.x_azrael == 399 or self.x_azrael in range (750, 757):
+            self.pos = -1
             self.azrael.config(image=self.frame1)
             self.azrael.image = self.frame1
             return
-        if x_azrael > 1220:
-            pos = -1
-            x_azrael = 0
-        if pos == len(self.right_frames):
-            pos = 0
-        frame3 = self.cargarImagen(self.right_frames[pos])
+        if self.x_azrael > 1220:
+            self.pos = -1
+            self.x_azrael = 0
+        if self.pos == len(self.right_frames):
+            self.pos = 0
+        frame3 = self.cargarImagen(self.right_frames[self.pos])
         self.azrael.config(image=frame3)
         self.master.after(5, self.right)
         self.master.mainloop()
 
     def left(self):
-        global x_azrael
-        global pos
-        self.azrael.place(x=x_azrael, y=50)
-        pos += 1
-        x_azrael -= 7
-        if x_azrael == 401 or x_azrael in range (-1, 6):
-            pos = -1
+        self.azrael.place(x=self.x_azrael, y=50)
+        self.pos += 1
+        self.x_azrael -= 7
+        if self.x_azrael == 401 or self.x_azrael in range (-1, 6):
+            self.pos = -1
             self.azrael.config(image=self.frame1)
             self.azrael.image = self.frame1
             return
-        if x_azrael < -450:
-            pos = -1
-            x_azrael = 800
-        if pos == len(self.left_frames):
-            pos = 0
-        frame3 = self.cargarImagen(self.left_frames[pos])
+        if self.x_azrael < -450:
+            self.pos = -1
+            self.x_azrael = 800
+        if self.pos == len(self.left_frames):
+            self.pos = 0
+        frame3 = self.cargarImagen(self.left_frames[self.pos])
         self.azrael.config(image=frame3)
         self.master.after(5, self.left)
         self.master.mainloop()
