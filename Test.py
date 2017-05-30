@@ -22,11 +22,12 @@ class Robot:
         self.nombre = nombre
         self.imagen = "Front.png"
         self.ser = serial.Serial('COM3', 9600)
+        self.botones = ""
 
     def update(self):
         while 1:
             if self.ser.readline() != None:
-                print("True")
+                print(self.ser.readline())
 
 
 
@@ -74,7 +75,7 @@ class GUI:
         self.b1.place(x=700, y=10)
 
 
-        self.master.after()
+        #self.master.after()
         self.master.mainloop()
 
     #           ______________________________
@@ -100,11 +101,13 @@ class GUI:
         self.master.after(5, self.right)
         self.master.mainloop()
 
+    def compare(self):
+        if animation == b'DER\r\n':
+            self.right()
 
-
-#animation = Robot()
-#arduino = Thread(target=animation.update, args=())
-#arduino.start()
+animation = Robot()
+arduino = Thread(target=animation.update, args=())
+arduino.start()
 
 root = Tk()
 ventana_principal = GUI(root)
