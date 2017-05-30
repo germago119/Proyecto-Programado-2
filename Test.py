@@ -15,10 +15,9 @@ sys.setrecursionlimit(10000000)
 
 
 # -------------------------------------------------------
-
 class myThread(threading.Thread):
 
-    def __init__(self, myserial , queque):
+    def __init__(self, myserial, queque):
 
         threading.Thread.__init__(self)
         self.queque = queque
@@ -27,11 +26,7 @@ class myThread(threading.Thread):
     def run(self):
         while 1:
             if self.ser.readline() != None:
-                #print("Leyendo")
-                #print(self.ser.readline())
-
                 if self.ser.readline() == b'IZQ\r\n':
-                    #print("$$$$$$$$$$$$$$$$$PITILLO")
                     self.queque.put("IZQ")
 
 
@@ -46,13 +41,8 @@ class Robot:
     def update(self):
         while 1:
             if self.ser.readline() != None:
-                #print(self.ser.readline())
-
                 if self.ser.readline() == b'IZQ\r\n':
                     self.miVentana.right()
-
-
-
 
 
 class GUI:
@@ -115,17 +105,9 @@ class GUI:
                 self.master.after(100, self.updateMe)
         except queue.Empty:
             pass
-            #print("MAME VERGA")
-
         self.master.after(100, self.updateMe)
-
-
-        #self.master.after()
-
-
     #           ______________________________
     # __________/Función que ejecuta que se mueva hacia la derecha
-
 
     def right(self):
         self.azrael.place(x=self.x_azrael, y=50)
@@ -147,16 +129,7 @@ class GUI:
         self.master.after(5, self.right)
 
 
-
-    #def compare(self):
-            #self.right()
-
-#animation = Robot()
-#arduino = Thread(target=animation.update, args=())
-#arduino.start()
 ser = serial.Serial('COM3', 9600, timeout=0, write_timeout=0)
 root = Tk()
 ventana_principal = GUI(root, ser)
 root.mainloop()
-
-
