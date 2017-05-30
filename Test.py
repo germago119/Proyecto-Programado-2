@@ -18,7 +18,6 @@ sys.setrecursionlimit(10000000)
 class myThread(threading.Thread):
 
     def __init__(self, laVentana, myserial):
-
         super(myThread,self).__init__()
         self.miVentana = laVentana
         self.ser = myserial
