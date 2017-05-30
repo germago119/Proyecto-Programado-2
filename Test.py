@@ -9,6 +9,7 @@ import sys
 import serial
 import time
 import threading
+import queue
 
 sys.setrecursionlimit(10000000)
 
@@ -17,21 +18,21 @@ sys.setrecursionlimit(10000000)
 
 class myThread(threading.Thread):
 
-    def __init__(self, laVentana, myserial):
+    def __init__(self, myserial , queque):
 
-        super(myThread,self).__init__()
-        self.miVentana = laVentana
+        threading.Thread.__init__(self)
+        self.queque = queque
         self.ser = myserial
 
-
-
-    def update(self):
+    def run(self):
         while 1:
             if self.ser.readline() != None:
-                print(self.ser.readline())
+                #print("Leyendo")
+                #print(self.ser.readline())
 
                 if self.ser.readline() == b'IZQ\r\n':
-                    self.miVentana.right()
+                    #print("$$$$$$$$$$$$$$$$$PITILLO")
+                    self.queque.put("IZQ")
 
 
 # --------------------------------------------------------------------
@@ -39,13 +40,13 @@ class myThread(threading.Thread):
 class Robot:
     def __init__(self):
         self.miVentana = None
-        self.ser = None
+        self.ser = serial.Serial('COM3', 9600)
         self.botones = ""
 
     def update(self):
         while 1:
             if self.ser.readline() != None:
-                print(self.ser.readline())
+                #print(self.ser.readline())
 
                 if self.ser.readline() == b'IZQ\r\n':
                     self.miVentana.right()
@@ -60,9 +61,11 @@ class GUI:
         imagen = PhotoImage(file=ruta)
         return imagen
 
-    def __init__(self, master):
+    def __init__(self, master, myserial):
         # Crea la ventana principal
         self.master = master
+        self.queque = queue.Queue()
+
         self.left_frames = ["W1L.png", "W2L.png", "W3L.png", "W4L.png"]
         self.right_frames = ["W1R.png", "W2R.png", "W3R.png", "W4R.png"]
         master.title("Azrael")
@@ -97,9 +100,28 @@ class GUI:
         self.b1 = Button(self.master, text="Prueba right", command=self.right)
         self.b1.place(x=700, y=10)
 
+        myThread(myserial, self.queque).start()
+        self.updateMe()
+        self.master.mainloop()
+
+    def updateMe(self):
+        print("Entre al update")
+        try:
+            msg = self.queque.get(0)
+            #print("Estoy aqui " + msg)
+            if msg == "IZQ":
+                self.right()
+                print("$$$$")
+                self.master.after(100, self.updateMe)
+        except queue.Empty:
+            pass
+            #print("MAME VERGA")
+
+        self.master.after(100, self.updateMe)
+
 
         #self.master.after()
-        self.master.mainloop()
+
 
     #           ______________________________
     # __________/Función que ejecuta que se mueva hacia la derecha
@@ -121,8 +143,10 @@ class GUI:
             self.pos = 0
         frame3 = self.cargarImagen(self.right_frames[self.pos])
         self.azrael.config(image=frame3)
+        self.master.update()
         self.master.after(5, self.right)
-        self.master.mainloop()
+
+
 
     #def compare(self):
             #self.right()
@@ -132,12 +156,7 @@ class GUI:
 #arduino.start()
 ser = serial.Serial('COM3', 9600, timeout=0, write_timeout=0)
 root = Tk()
-ventana_principal = GUI(root)
-
-arduino = myThread(ventana_principal, verga)
-arduino.update()
-
-root.after(100, )
+ventana_principal = GUI(root, ser)
 root.mainloop()
 
 
