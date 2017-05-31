@@ -78,7 +78,7 @@ class GUI:
         self.azrael.image = self.frame1
         self.azrael.place(x=400, y=50)
 
-        self.label_title = Label(master, text="Diseño del control:", fg="#ffffff", bg="#000000",
+        self.label_title = Label(self.master, text="Diseño del control:", fg="#ffffff", bg="#000000",
                                  font=("Eczar", 22, "bold"))
         self.label_title.place(x=90, y=650)
 
