@@ -70,41 +70,45 @@ class GUI:
 
 
     def right(self):
-        self.azrael.place(x=self.x_azrael, y=50)
-        self.pos += 1
-        self.x_azrael += 7
-        if self.x_azrael == 399 or self.x_azrael in range (750, 757):
-            self.pos = -1
-            self.azrael.config(image=self.frame1)
-            self.azrael.image = self.frame1
-            return
-        if self.x_azrael > 1220:
-            self.pos = -1
-            self.x_azrael = 0
-        if self.pos == len(self.right_frames):
-            self.pos = 0
-        frame3 = self.cargarImagen(self.right_frames[self.pos])
-        self.azrael.config(image=frame3)
-        self.master.after(5, self.right)
+        flag_right = 1
+        while flag_right != 0:
+            self.azrael.place(x=self.x_azrael, y=50)
+            self.pos += 1
+            self.x_azrael += 7
+            if self.x_azrael == 399 or self.x_azrael in range (750, 757):
+                self.pos = -1
+                self.azrael.config(image=self.frame1)
+                self.azrael.image = self.frame1
+                break
+            if self.x_azrael > 1220:
+                self.pos = -1
+                self.x_azrael = 0
+            if self.pos == len(self.right_frames):
+                self.pos = 0
+            frame3 = self.cargarImagen(self.right_frames[self.pos])
+            self.azrael.config(image=frame3)
+            self.master.update()
         self.master.mainloop()
 
     def left(self):
-        self.azrael.place(x=self.x_azrael, y=50)
-        self.pos += 1
-        self.x_azrael -= 7
-        if self.x_azrael == 401 or self.x_azrael in range (-1, 6):
-            self.pos = -1
-            self.azrael.config(image=self.frame1)
-            self.azrael.image = self.frame1
-            return
-        if self.x_azrael < -450:
-            self.pos = -1
-            self.x_azrael = 800
-        if self.pos == len(self.left_frames):
-            self.pos = 0
-        frame3 = self.cargarImagen(self.left_frames[self.pos])
-        self.azrael.config(image=frame3)
-        self.master.after(5, self.left)
+        flag_left = 1
+        while flag_left != 0:
+            self.azrael.place(x=self.x_azrael, y=50)
+            self.pos += 1
+            self.x_azrael -= 7
+            if self.x_azrael == 401 or self.x_azrael in range (-1, 6):
+                self.pos = -1
+                self.azrael.config(image=self.frame1)
+                self.azrael.image = self.frame1
+                break
+            if self.x_azrael < -450:
+                self.pos = -1
+                self.x_azrael = 800
+            if self.pos == len(self.left_frames):
+                self.pos = 0
+            frame3 = self.cargarImagen(self.left_frames[self.pos])
+            self.azrael.config(image=frame3)
+            self.master.update()
         self.master.mainloop()
 
 
