@@ -30,7 +30,7 @@ void loop() {
   int button2State = digitalRead(boton2);
   int button3State = digitalRead(boton3);
   int button4State = digitalRead(boton4);
-  int button4State = digitalRead(boton4);
+  int button5State = digitalRead(boton5);
     //lee el estado del pin (0 o 1, 0 o 5v)
   if (button1State == 0)
   {
@@ -48,9 +48,10 @@ void loop() {
   {
     Serial.println("OWN");
   }
-  if (button4State == 0)
+  if (button5State == 0)
   { 
     Serial.println("PRESENTATION");
   }
+// delay (10); valor anterior
 delay(10);        // espera para la siguiente lectura
 }

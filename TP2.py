@@ -88,8 +88,10 @@ class GUI:
             frame3 = self.cargarImagen(self.right_frames[self.pos])
             self.azrael.config(image=frame3)
             self.master.update()
+
 #             _______________________________________________
 #____________/Función que hace que se mueva hacia la izquierda
+
     def left(self):
         flag_left = 1
         while flag_left != 0:
