@@ -88,7 +88,7 @@ class GUI:
             frame3 = self.cargarImagen(self.right_frames[self.pos])
             self.azrael.config(image=frame3)
             self.master.update()
-        self.master.mainloop()
+
 
     def left(self):
         flag_left = 1
@@ -109,7 +109,7 @@ class GUI:
             frame3 = self.cargarImagen(self.left_frames[self.pos])
             self.azrael.config(image=frame3)
             self.master.update()
-        self.master.mainloop()
+
 
 
 
