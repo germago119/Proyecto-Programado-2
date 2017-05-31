@@ -95,7 +95,7 @@ class GUI:
         self.master.mainloop()
 
     def updateMe(self):
-        print("Entre al update")
+        #print("Entre al update")
         try:
             msg = self.queque.get(0)
             #print("Estoy aqui " + msg)
