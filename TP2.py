@@ -11,7 +11,7 @@ sys.setrecursionlimit(10000000)
 
 #-------------------------------------------------------
 
-
+music = True
 #--------------------------------------------------------------------
 
 class Robot:
@@ -59,9 +59,9 @@ class GUI:
 
         #  AQUI VA UNA IMAGEN DEL CONTROL CON LOS BOTONES
 
-        self.b1 = Button(self.master, text="Prueba right", command=self.right)
+        self.b1 = Button(self.master, text="Prueba right", command=self.play)
         self.b1.place(x=700, y=10)
-        self.b2 = Button(self.master, text="Prueba Left", command=self.left)
+        self.b2 = Button(self.master, text="Prueba Left", command=self.pause)
         self.b2.place(x=600, y=10)
 
         self.master.mainloop()
@@ -89,6 +89,8 @@ class GUI:
             self.azrael.config(image=frame3)
             self.master.update()
 
+#             _______________________________________________
+#____________/Función que hace que se mueva hacia la izquierda
 
     def left(self):
         flag_left = 1
@@ -111,7 +113,64 @@ class GUI:
             self.master.update()
 
 
+#             _______________________________________________
+#____________/Función que hace la presentancion
 
+#    def presentation(self):
+ #       flag_presen = 1
+ #       prese = Thread(target=self.music_presen, arg())
+ #       prese.start()
+ #       while flag_presen != 0:
+ #           self.azrael.place(x=200, y = 50)
+ #           self.#El OTRO ROBOT NO SE
+ #           frame2 = self.cargarImagen("self.left_frames[self.pos]")
+ #           frame#El otro robot
+ #           self.azrael.config(image=frame2)
+ #           self."otro robot".config(image =frame#el otro robot)
+ #           self.master.update()
+ #          break
+ #
+ # def music_presen(self):
+ #       winsound.PlaySound("AUDIO", winsound.SND_ASYNC)
+
+
+#             _______________________________________________
+#____________/Función reproduce la musica
+
+
+    def play(self):
+        global music
+        music = True
+        play_thr = Thread(target=self.play_aux(), args=())
+        play_thr.start()
+
+    def play_aux(self):
+        while music:
+            winsound.PlaySound("Marshmellow.wav", winsound.SND_FILENAME)
+
+    def pause(self):
+        global music
+        music = False
+
+#             _______________________________________________
+#____________/Función naciente de la creatividad del grupo de trabajpo
+
+#    def presentation(self):
+ #       flag_presen = 1
+ #       prese = Thread(target=self.music_presen, arg())
+ #       prese.start()
+ #       while flag_presen != 0:
+ #           self.azrael.place(x=200, y = 50)
+ #           self.#El OTRO ROBOT NO SE
+ #           frame2 = self.cargarImagen("self.left_frames[self.pos]")
+ #           frame#El otro robot
+ #           self.azrael.config(image=frame2)
+ #           self."otro robot".config(image =frame#el otro robot)
+ #           self.master.update()
+ #          break
+ #
+ # def music_own(self):
+ #       winsound.PlaySound("TURN DOWN FOR WHAT", winsound.SND_ASYNC)
 
 root = Tk()
 ventana_principal = GUI(root)
