@@ -34,15 +34,15 @@ void loop() {
     //lee el estado del pin (0 o 1, 0 o 5v)
   if (button1State == 0)
   {
-    Serial.println("DER");
+    Serial.println("IQZ");
   }
   if (button2State == 0)
   {
-    Serial.println("IZQ");
+    Serial.println("DER");
   }
   if (button3State == 0)
   {
-    Serial.println("PLAY/PAUSE");
+    Serial.println("PRESENTATION");
   }
   if (button4State == 0)
   {
@@ -50,7 +50,7 @@ void loop() {
   }
   if (button5State == 0)
   { 
-    Serial.println("PRESENTATION");
+    Serial.println("PLAY/PAUSE");
   }
 // delay (10); valor anterior
 delay(10);        // espera para la siguiente lectura
