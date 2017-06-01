@@ -4,7 +4,6 @@ from tkinter import *
 from tkinter import messagebox
 from threading import Thread
 import os
-import winsound
 import sys
 import serial
 import time
@@ -41,7 +40,6 @@ class Robot:
         self.botones = ""
 
 
-
 class GUI:
     def cargarImagen(self, nombre):
         ruta = os.path.join('Imagenes', nombre)
@@ -55,6 +53,16 @@ class GUI:
 
         self.left_frames = ["W1L.png", "W2L.png", "W3L.png", "W4L.png"]
         self.right_frames = ["W1R.png", "W2R.png", "W3R.png", "W4R.png"]
+        self.presentation_frames = ["H1.png", "H2.png", "H3.png", "H4.png", "H5.png", "H6.png", "H7.png", "H8.png",  
+                                    "H9.png", "H10.png", "H11.png", "H12.png", "H13.png", "H14.png"]
+        self.own_frames = ["D1.png", "D2.png", "D1.png", "D2.png", "D3.png", "D4.png", "D5.png", "D6.png", "D7.png",
+                           "D8.png", "D9.png", "D10.png", "D11.png", "D12.png", "D1.png", "D2.png", "D8.png", "D9.png",
+                           "D10.png", "D11.png", "D12.png", "D1.png", "D2.png", "D1.png", "D2.png", "D3.png", "D4.png",
+                           "D5.png", "D6.png", "D7.png", "D8.png", "D9.png", "D10.png", "D11.png", "D12.png", "D1.png",
+                           "D2.png", "D8.png", "D9.png", "D10.png", "D11.png", "D12.png", "TDF1.png", "TDF2.png",
+                           "TDF3.png"]
+        self.play_pause = ["P/s.png"]
+        
         master.title("Azrael")
         master.minsize(1300, 800)
         master.resizable(width=NO, height=NO)
