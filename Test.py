@@ -61,7 +61,7 @@ class GUI:
                            "D5.png", "D6.png", "D7.png", "D8.png", "D9.png", "D10.png", "D11.png", "D12.png", "D1.png",
                            "D2.png", "D8.png", "D9.png", "D10.png", "D11.png", "D12.png", "TDF1.png", "TDF2.png",
                            "TDF3.png"]
-        self.play_pause = ["P/s.png"]
+        self.play_pause = ["PS.png"]
         
         master.title("Azrael")
         master.minsize(1300, 800)
