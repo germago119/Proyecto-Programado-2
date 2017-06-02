@@ -24,7 +24,6 @@ class myThread(threading.Thread):
     def run(self):
         while 1:
             if self.ser.readline() != None:
-                #print(self.ser.readline())
                 #  Convierte las señales recibidas del Arduino en mensajes para ejecutar las funciones en Python
                 if self.ser.readline() == b'I\r\n':
                     self.queque.put("IZQ")
@@ -118,7 +117,6 @@ class GUI:
 
     def updateMe(self):
         """....Esta función es la que verifica el mensaje que se recibe de Arduino, y dependiendo del mensaje llama a la función solicitada....."""
-        #print("Entre al update")
         try:
             msg = self.queque.get(0)
             print("Estoy aqui " + msg)
