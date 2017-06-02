@@ -32,7 +32,10 @@ class GUI:
         self.left_frames = ["W1L.png", "W2L.png", "W3L.png", "W4L.png"]
         self.right_frames = ["W1R.png", "W2R.png", "W3R.png", "W4R.png"]
         self.own_frames= ["D1.png", "D2.png", "D3.png", "D4.png", "D5.png", "D6.png", "D7.png", "D8.png", "D9.png", "D10.png", "D11.png", "D12.png", "TDF1.png", "TDF2.png", "TDF3.png"]
-        self.presen_frames = ["H1.png", "H2.png", "H3.png", "H4.png", "H5.png", "H6.png", "H7.png", "H8.png", "H9.png", "H10.png", "H11.png", "H12.png", "H13.png", "H14.png"]
+        self.presen_frames = ["H1.png", "H2.png", "H3.png", "H4.png", "H5.png", "H6.png", "H7.png", "H8.png", "H9.png", "H1.png", "H2.png", "H3.png", "H4.png", "H5.png", "H6.png",
+                              "H7.png", "H8.png", "H9.png", "H1.png", "H2.png", "H3.png", "H4.png", "H5.png", "H6.png", "H7.png", "H8.png", "H9.png", "H1.png", "H2.png", "H3.png", "H4.png", "H5.png", "H6.png", "H7.png", "H8.png", "H9.png",
+                              "H1.png", "H2.png", "H3.png", "H4.png", "H5.png", "H6.png", "H7.png", "H8.png", "H9.png", "H10.png", "H11.png", "H12.png", "H13.png", "H14.png"]
+        self.play_frames = ["PS.png"]
         master.title("Azrael")
         master.minsize(1300, 800)
         master.resizable(width=NO, height=NO)
@@ -153,21 +156,34 @@ class GUI:
         self.azrael.place(x=400, y=50)
         self.master.update()
 
-    #def music_presen(self):
-     #   winsound.PlaySound("AUDIO", winsound.SND_ASYNC)
-
 
 #             _______________________________________________
 #____________/Función reproduce la musica
 
 
     def play(self):
+        self.azrael.place(x=130, y=50)
+        frame6 = self.cargarImagen(self.play_frames[0])
+        self.azrael.config(image=frame6)
+
         pygame.mixer.init()
         pygame.mixer.music.load("Marshmello.ogg")
         pygame.mixer.music.play()
+        self.master.mainloop()
+
+
+
 
     def pause(self):
+        pygame.mixer.init()
         pygame.mixer.music.stop()
+        self.azrael.destroy()
+        self.frame1 = self.cargarImagen("Front.png")
+        self.azrael = Label(self.fondo, bg='white')
+        self.azrael.config(image=self.frame1)
+        self.azrael.image = self.frame1
+        self.azrael.place(x=400, y=50)
+        self.master.update()
 
 
 
@@ -177,11 +193,12 @@ class GUI:
     def presentation(self):
         flag_presen = 1
         conta = 0
-        #prese = Thread(target=self.music_presen, arg())
-        #prese.start()
+        pygame.mixer.init()
+        pygame.mixer.music.load("Hello.ogg")
+        pygame.mixer.music.play()
         while flag_presen != 0:
-            if conta == 14:
-                time.sleep(1)
+            if conta == 50:
+                time.sleep(3)
                 break
             else:
                 self.azrael.place(x=350, y=50)
@@ -198,8 +215,6 @@ class GUI:
         self.azrael.place(x=400, y=50)
         self.master.update()
 
- # def music_own(self):
- #       winsound.PlaySound("TURN DOWN FOR WHAT", winsound.SND_ASYNC)
 
 root = Tk()
 ventana_principal = GUI(root)
