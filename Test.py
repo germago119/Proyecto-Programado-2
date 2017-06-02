@@ -23,16 +23,18 @@ class myThread(threading.Thread):
 
     def run(self):
         while 1:
-            if self.ser.readline() != None: # Convierte las señales recibidas del Arduino en mensajes para ejecutar las funciones en Python
-                if self.ser.readline() == b'IZQ\r\n':
+            if self.ser.readline() != None:
+                #print(self.ser.readline())
+                #  Convierte las señales recibidas del Arduino en mensajes para ejecutar las funciones en Python
+                if self.ser.readline() == b'I\r\n':
                     self.queque.put("IZQ")
-                if self.ser.readline() == b'DER\r\n':
+                if self.ser.readline() == b'D\r\n':
                     self.queque.put("DER")
-                if self.ser.readline() == b'PRESENTATION\r\n':
+                if self.ser.readline() == b'P\r\n':
                     self.queque.put("PRESENTATION")
-                if self.ser.readline() == b'OWN\r\n':
+                if self.ser.readline() == b'O\r\n':
                     self.queque.put("OWN")
-                if self.ser.readline() == b'PLAY/PAUSE\r\n':
+                if self.ser.readline() == b'L\r\n':
                     self.queque.put("PLAY/PAUSE")
 
 
@@ -102,9 +104,12 @@ class GUI:
         self.label_description = Label(master, text="Hola, mi nombre es Azrael. Soy un pequeño juego creado por Kevyn Guadamuz y Roger Valderrama \n"
                                             "Acercate, toma el control y empieza a jugar conmigo. Descubre lo que puedo hacer con solo presionar un botón. \n"
                                             "Interactua conmigo y podrás conocer a mi mejor amigo y verás lo que podemos hacer juntos.", fg="#ffffff", bg="#000000", font=("Eczar", 16, "bold"))
-        self.label_description.place(x=80, y=675)
+        self.label_description.place(x=80, y=655)
         self.label_rights = Label(master, text="Rights Reserve to Kevyn Guadamuz and Roger Valderrama, Tecnológico de Costa Rica.", fg="#ffffff", bg="#000000", font=("Eczar", 11, "bold"))
-        self.label_rights.place(x=350, y=765)
+        self.label_rights.place(x=350, y=770)
+
+        self.music = False
+
 
         myThread(myserial, self.queque).start()
         self.updateMe()
@@ -116,7 +121,7 @@ class GUI:
         #print("Entre al update")
         try:
             msg = self.queque.get(0)
-            #print("Estoy aqui " + msg)
+            print("Estoy aqui " + msg)
             if msg == "IZQ":
                 self.left()
                 print("IZQ")
@@ -135,6 +140,7 @@ class GUI:
                 self.master.after(100, self.updateMe)
             if msg == "PLAY/PAUSE":
                 self.play()
+                self.music = True
                 print("PLAY/PAUSE")
                 self.master.after(100, self.updateMe)
         except queue.Empty:
@@ -165,6 +171,7 @@ class GUI:
 
 #           ______________________________
 # __________/Función que ejecuta la animación que se se mueva hacia la izquierda
+
     def left(self):
         flag_left = 1
         while flag_left != 0:
