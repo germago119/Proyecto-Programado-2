@@ -1,7 +1,7 @@
 #           _____________________________
 #__________/BIBLIOTECAS
 from tkinter import *
-from pygame import *
+import pygame
 from threading import Thread
 import os
 import winsound
@@ -63,9 +63,9 @@ class GUI:
         self.label_rights =Label(master, text="Rights Reserve to Kevyn Guadamuz and Roger Valderrama, Tecnológico de Costa Rica.", fg="#ffffff", bg="#000000", font=("Eczar", 11, "bold"))
         self.label_rights.place(x=350, y=765)
 
-        self.b1 = Button(self.master, text="Prueba right", command=self.own)
+        self.b1 = Button(self.master, text="Prueba right", command=self.play)
         self.b1.place(x=700, y=10)
-        self.b2 = Button(self.master, text="Prueba Left", command=self.presentation)
+        self.b2 = Button(self.master, text="Prueba Left", command=self.pause)
         self.b2.place(x=600, y=10)
 
         self.master.mainloop()
@@ -123,9 +123,9 @@ class GUI:
     def own(self):
         flag_presen = 1
         conta = 0
-        #pygame.mixer.init()
-        #pygame.mixer.music.load("Marshmellow.mp3")
-        #pygame.mixer.music.play()
+        pygame.mixer.init()
+        pygame.mixer.music.load("What.ogg")
+        pygame.mixer.music.play()
         while flag_presen != 0:
             if conta == 15:
                 time.sleep(1)
@@ -162,18 +162,14 @@ class GUI:
 
 
     def play(self):
-        global music
-        music = True
-        play_thr = Thread(target=self.play_aux(), args=())
-        play_thr.start()
-
-    def play_aux(self):
-        while music:
-            winsound.PlaySound("Marshmellow.wav", winsound.SND_FILENAME)
+        pygame.mixer.init()
+        pygame.mixer.music.load("Marshmello.ogg")
+        pygame.mixer.music.play()
 
     def pause(self):
-        global music
-        music = False
+        pygame.mixer.music.stop()
+
+
 
 #             _______________________________________________
 #____________/Función que hace la presentacion
